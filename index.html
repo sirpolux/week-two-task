@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/dbc64abf3e.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Oswald:wght@500&family=Pacifico&family=Sono:wght@600&display=swap" rel="stylesheet">
+    <script>
+        /*
+        SCRIPTS TO HANDLE SIDE HUTSE FORM SUBMIT.
+        I am not a fan of repeating myself, thus the series of arrow functions
+        */
+        function handleSubmit(){
+            const opt=confirm('Are you sure you want to continue with this action')
+            opt && submitForm()
+        }
+
+        function closeNotification(){
+            changeNoteState(2)
+        }
+
+        /* SUBITS FORM */
+        submitForm=()=>{
+            const inputFields=['fullname','email','number','password']
+            const name=getVal('fullname');
+            setTxt('applicant-name',name)
+            changeNoteState(1)
+            
+            //CLEAR INPUTS
+            inputFields.forEach(id=>setVal(id,''))
+        }
+
+        /* RETURNS ELEMENTS */
+        getE=(target)=>{
+            return document.getElementById(target)
+        }
+
+        /* RETURN VALUES OF TARGETED ELEMENT */
+        getVal=(target)=>{
+            return getE(target).value
+        }
+
+        /* SETS VALUE OF TARGET ELEMENT */
+        setVal=(target,val)=>{
+            getE(target).value=val
+        }
+
+        /* SETS TEXT OF TARGET ELEMENT*/
+        setTxt=(target,val)=>{
+            getE(target).innerHTML=val
+        }
+
+        /*NOTIFICATION TOGGLE */
+
+        changeNoteState=(action)=>{
+            const notification=getE('notification')
+            switch(action){
+                case 1:
+                    notification.style.display='flex'
+                break
+                case 2:
+                    notification.style.display='none'
+                break
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    
+        .main-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0e0e0eff;
+        }
+    
+        .sub-container {
+            width: 60%;
+            height: 100vh;
+            background-color: white;
+            position: relative;
+            display: flex;
+            justify-items: center;
+        }
+        @media only screen and (max-width:600px) {
+            .sub-container {
+                width: 90%;
+            }
+            #form-title {
+                font-size: 20px;
+            }
+    
+            .data-form {
+                padding: 10px;
+            }
+        }
+        .sub-section-1,
+        .sub-section-2,
+        .sub-section-3 {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            z-index: 3;
+        }
+        .sub-section-1 {
+            height: 40vh;
+            background-color: #1a202cff;
+        }
+        .sub-section-2 {
+            top: 40vh;
+            height: 20vh;
+            background-color: #1e243cff;
+        }
+        .sub-section-3 {
+            top: 60vh;
+            height: 40vh;
+            background-color: #3c66b2ff;
+        }
+        .form-container {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+            height: 90vh;
+            background-color: white;
+            z-index: 6;
+            border-radius: 5px;
+            box-shadow: 0px 0px 4px rgb(35, 33, 33), 0px 0px 6px white;
+            padding: 20px;
+        }
+        .sub-container-2 {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .side-hustle-theme {
+            position: absolute;
+            border-radius: 2px 4px 6px 8px;
+            padding: 5px;
+            width: 120px;
+            height: 60px;
+            top: -25px;
+            left: -25px;
+            transform: rotate(-35deg);
+            background-color: white;
+            box-shadow: 0px 0px 2px black, 0px 0px 4px white;
+        }
+        .side-hustle-theme img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            object-position: center;
+        }
+        .form {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        .samp-img-cont {
+            flex: 1;
+            background-image: url('coding_img.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 3px;
+        }
+        .data-form {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+        .form-content {
+            margin-top: 20px
+        }
+    
+        .form-title {
+            font-size: 28px;
+            font-family: 'Oswald', sans-serif;
+            margin-bottom: 20px;
+            color: #1a202cff;
+        }
+        .input-group {
+            width: 100%;
+            margin-bottom: 15px;
+            border-bottom: 1px solid grey;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        input:focus {
+            outline: none;
+            border: none;
+        }
+        .input-group:hover {
+            border-bottom: 1px solid black;
+        }
+        .input-group2 {
+            margin-top: 20px;
+        }
+        .input-group2 label {
+            color: grey;
+        }
+        .group-label {
+            color: rgb(79, 69, 69);
+        }
+        .radio-group {
+            margin-top: 8px;
+        }
+        .input-group-pw {
+            margin-top: 20px;
+            display: flex;
+            border-bottom: 1px solid grey;
+            padding: 5px;
+            margin-bottom: 30px;
+        }
+    
+        .input-group-pw input {
+            border: none;
+            width: 100%;
+        }
+    
+        .input-group-pw span {
+            color: grey;
+        }
+    
+        .input-group-btn {
+            width: 100%;
+            text-align: center;
+        }
+    
+        .input-group-btn button {
+            border: none;
+            padding: 15px 20px;
+            background-color: #1a202cff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+        }
+    
+        .foot-note {
+            margin-top: 20px;
+            font-family: 'Pacifico', cursive;
+            font-size: 16px;
+            color: #1a202cff;
+        }
+    
+        #email {
+            text-transform: lowercase;
+        }
+    
+        #notification {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            display: none;
+            background-color: rgba(7, 5, 5, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .notification-content {
+            padding: 30px 40px;
+            background-color: white;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 450px;
+        }
+    
+        #close-not {
+            border: none;
+            padding: 10px 15px;
+            background-color: #1a202cff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+        }
+    
+        .mt-md {
+            margin-top: 20px;
+        }
+    
+        .mt-sm {
+            margin-top: 10px;
+        }
+    
+        .close-not {
+            width: 100%;
+            text-align: right;
+        }
+    
+        .response-img {
+            width: 100%;
+            text-align: center;
+        }
+    
+        .response-img img {
+            width: 120px;
+            height: auto;
+        }
+    
+        #applicant-name {
+            font-weight: bold;
+        }
+    </style>
+
+<title>Registration Form</title>
+</head>
+<body>
+    <div class="main-container">
+        <div class="sub-container">
+            <div class="sub-container-2">
+                <div class="form-container">
+                    <div class="side-hustle-theme">
+                        <img src="side_hustle.jfif"/>
+                    </div>
+                   <div class="form">
+                        <div class="samp-img-cont"> 
+                        </div>
+                        <div class="data-form">
+                            <span class="form-title">REGISTER  <i class='fas fa-id-card'></i></span><br><br>
+                            <hr/>
+                            <div class="form-content">
+                                <form action="" onsubmit="event.preventDefault(),handleSubmit()" >
+                                    <div class="input-group">
+                                        <input type="text" placeholder="FULL NAME" id="fullname" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="email" placeholder="EMAIL" id="email" required> 
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="number" placeholder="PHONE NUMBER" id="number" required>
+                                    </div>
+                                    <div class="input-group2">
+                                        <span class="group-label">GENDER</span><br>
+                                        <div class="radio-group">
+                                            <input type="radio" name="gender" value="Male" id="male"><label for="male" required> MALE</label> 
+                                        </div>
+                                        <div class="radio-group">
+                                            <input type="radio" name="gender" value="Female" id="female"> <label for="female" required> FEMALE</label> 
+                                        </div>
+                                    </div>
+                                    <div class="input-group-pw">
+                                        <input type="password" placeholder="********"  id="password" required>
+                                        <span>PASSWORD</span>
+                                    </div>
+                                    <div class="input-group-btn">
+                                        <button>CREATE ACCOUNT  <i class='fas fa-paper-plane'></i></button>
+                                    </div>
+                                    <div class="foot-note">
+                                        <span>@Mac.  Paul (Week 2 Task)</span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+            <!--BACKGROUND SECTION SEPERATOR-->
+            <div class="sub-section-1">
+
+            </div>
+            <div class="sub-section-2">
+            </div>
+
+            <div class="sub-section-3">
+
+            </div>
+
+
+        </div>
+    </div>
+    <!--CUSTOM ALERT FOR SUBMITTED FORM-->
+    <div id="notification">
+        <div class="notification-content">
+            <div class="response-img">
+                <img src="side_hustle.jfif" alt="">
+            </div>
+            <p id="resp-txt">Congratulations <span id="applicant-name"></span>, you application has been submitted</p>
+            <hr class="mt-md">
+            <div class="mt-sm close-not" >
+                <button id="close-not" onclick="closeNotification()">Close</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
