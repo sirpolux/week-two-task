@@ -5,6 +5,6 @@
 
 **SAMPLE OUTPUT**
 
-### LIFE OUT AVAILABLE AT 
+### LIVE PREVIEW AVAILABLE AT 
 
-[ClickMe]('https://main--neon-paletas-a49d76.netlify.app/')
+[ClickMe](https://main--neon-paletas-a49d76.netlify.app/)
